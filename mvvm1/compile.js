@@ -47,7 +47,7 @@ Compile.prototype = {
     });
   },
   compile: function(node){
-    
+
   },
   compileText: function(node, content){
 
@@ -57,5 +57,18 @@ Compile.prototype = {
   },
   isTextElementNode: function(node){
     return node && node.nodeType === 3;  // 文字
+  }
+}
+// 指令处理集合
+let compileUtil = {
+  
+}
+// 更新函数
+let update = {
+  textUpdate: function(node, value){
+    node.textContent = value ? value : ''
+  },
+  htmlUpdate: function(node, value){
+    node.innerHTML = value ? value : ''
   }
 }
