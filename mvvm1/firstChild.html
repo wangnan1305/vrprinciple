@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>fristChild</title>
+</head>
+<body>
+  <div id="parent">
+    <!-- 注释 -->
+    <div class="test">
+      TEST
+      <span>span</span>
+      <span>span1</span>
+    </div>
+  </div>
+</body>
+</html>
+<script>
+    let dom = document.getElementById("parent");
+    let copy = document.createElement("div");
+    copy.setAttribute("id","wn")
+    let frameElement = document.createDocumentFragment();
+    let child;
+    while( child = dom.firstChild) {
+      console.log(dom.childNodes.length)
+      frameElement.appendChild(child)
+    }
+    copy.appendChild(frameElement);
+    document.body.appendChild(copy)
+  </script>

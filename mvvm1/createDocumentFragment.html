@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>createDocumentFragment</title>
+</head>
+<body>
+  <div>
+    <ul id="ulDom"></ul>
+  </div>
+</body>
+<script>
+let ulDom = document.getElementById("ulDom");
+let fragment = document.createDocumentFragment();
+var browsers = ['Firefox', 'Chrome', 'Opera', 
+    'Safari', 'Internet Explorer'];
+browsers.forEach(function(item){
+  let li = document.createElement("li");
+  li.textContent = item;
+  fragment.appendChild(li);
+});
+ulDom.appendChild(fragment)
+</script>
+</html>
