@@ -1,5 +1,18 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <Copy />
   </div>
 </template>
+<script>
+import Copy from '@/components/copy.vue'
+
+export default {
+  name: 'home',
+  components: {
+    Copy
+  }
+}
+</script>
+<style>
+
+</style>
