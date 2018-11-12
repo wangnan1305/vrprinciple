@@ -47,7 +47,19 @@ Compile.prototype = {
     });
   },
   compile: function(node){
-
+    const nodeAttrs = node.attributes, _this = this;
+    [].slice.call(this.nodeAttrs).forEach(function(attrItem){
+      const attrName = attrItem.name;
+      if(_this.isDirective(attrName)) {
+        const value = attrItem.value;
+        if(_this.isEventDirective()){
+          // 事件指令
+          
+        } else {
+          // 普通指令
+        }
+      }
+    })
   },
   compileText: function(node, content){
 

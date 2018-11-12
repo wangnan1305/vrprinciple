@@ -8,6 +8,7 @@
 </head>
 <body>
   <script>
+      window.color = 'yellow'
       var obj = {
         color: 'red',
         getColor: function(){
@@ -18,7 +19,7 @@
       var obj2 = {
         color: 'green'
       }
-      log(obj.getColor.call(obj2))
+      log(obj.getColor.call(this))
       function log(){
         console.log.apply(console.log, arguments);
       }
