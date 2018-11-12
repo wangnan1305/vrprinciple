@@ -52,7 +52,7 @@ Compile.prototype = {
       const attrName = attrItem.name;
       if(_this.isDirective(attrName)) {
         const value = attrItem.value;
-        if(_this.isEventDirective()){
+        if(_this.isEventDirective(value)){
           // 事件指令
           
         } else {
@@ -60,6 +60,12 @@ Compile.prototype = {
         }
       }
     })
+  },
+  isDirective: function(name){
+    return /v-|:/.test(name) ? true : false;
+  },
+  isEventDirective: function(name){
+    return /v-on|@/.test(name) ? true : false;
   },
   compileText: function(node, content){
 
