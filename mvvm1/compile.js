@@ -1,4 +1,5 @@
-function Compile(el){
+function Compile(el, vm){
+  this.$vm = vm;
   this.$el = this.isElementNode(el) ? el : document.querySelector(el);
   if(this.$el){
     this.$fragment = this.node2Fragment(this.$el);
@@ -47,16 +48,19 @@ Compile.prototype = {
     });
   },
   compile: function(node){
+    // v-text="content"
     const nodeAttrs = node.attributes, _this = this;
-    [].slice.call(this.nodeAttrs).forEach(function(attrItem){
-      const attrName = attrItem.name;
+    [].slice.call(nodeAttrs).forEach(function(attrItem){
+      const attrName = attrItem.name;  // "v-text"
       if(_this.isDirective(attrName)) {
-        const value = attrItem.value;
+        const exp = attrItem.value;  // content
+        const dir = attrName.substring(2);  // "v-text".substring(2)
         if(_this.isEventDirective(value)){
           // 事件指令
-          
+          compileUtil.eventHandler(node, _this.$vm, exp, dir);
         } else {
           // 普通指令
+          compileUtil[dir] && compileUtil[dir](node, _this.$vm, exp);
         }
       }
     })
@@ -79,10 +83,16 @@ Compile.prototype = {
 }
 // 指令处理集合
 let compileUtil = {
-  
+  text: function(node, vm, exp){
+    this.bind(node, vm, exp, 'text')
+  },
+  bind: function(node, vm, exp, dir){
+    let updateFn = updater[dir + 'Update'];
+    updateFn && updateFn(node, vm[exp])
+  }
 }
 // 更新函数
-let update = {
+let updater = {
   textUpdate: function(node, value){
     node.textContent = value ? value : ''
   },

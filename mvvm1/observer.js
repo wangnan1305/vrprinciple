@@ -30,7 +30,7 @@ function defineReactive(obj, key ,value){
       return value;
     },
     set: function(newValue){
-      if(type(value) === 'Array' && type(newValue) === 'Array'){
+      if(Array.isArray(value) && Array.isArray(newValue)){
         if(JSON.stringify(value) !== JSON.stringify(newValue)){
           log('监听到变化了::::', value, '----->', newValue);
           value = newValue;

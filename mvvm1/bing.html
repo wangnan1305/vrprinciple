@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>bind</title>
+</head>
+<body>
+  <script>
+    // 'use strict'
+    window.x = 43;
+    var module = {
+      x: 42,
+      getX: function(){
+        return this.x;
+      }
+    }
+    var unboundGetX = module.getX;
+    log(module.getX())   // 42
+    log(unboundGetX())   // undefined
+    
+    var boundGex = unboundGetX.bind(module)
+    log(boundGex())
+
+    function log(){
+      return console.log.apply(console, arguments)
+    }
+  </script>
+</body>
+</html>
