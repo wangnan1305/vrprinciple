@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, width=device-width">
+  <title>视频自动播放</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+    .video-container {
+      width: 300px;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+    #video {
+      display: block;
+      width: 100%;
+    }
+    #mask {
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      display: none;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+    .pop-container {
+      width: 250px;
+      height: 200px;
+      background: transparent;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="video-container">
+  <h2>TITLE3</h2>
+  <video
+    id="video"
+    poster="http://ks3-cn-beijing.ksyun.com/static.toptest.yidianzixun.com/public/file/1542870766741/only_01.png"
+    src="https://ks3-cn-beijing.ksyun.com/static.toptest.yidianzixun.com/public/file/1544433220831/shiping.mp4"
+    loop="loop"
+    autoplay
+    playsinline="true"
+    webkit-playsinline="true"
+  ></video>
+</div>
+<div id="mask">
+  <div class="pop-container">
+    <img
+      onclick="playVideo()"
+      src="https://ks3-cn-beijing.ksyun.com/static.toptest.yidianzixun.com/public/file/1545962530075/bofang.png"
+    >
+  </div>
+</div>
+<script>
+  var video = document.querySelector('#video');
+  function resolveVideoTime(){
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(video.currentTime)
+      }, 500)
+    })
+  }
+  async function asyncCall(){
+    return await resolveVideoTime();
+  }
+  asyncCall().then((time) => {
+    if(time > 0) {
+      document.getElementById('mask').style.display = 'none';
+    } else if(time === 0){
+      document.getElementById('mask').style.display = 'flex';
+    }
+  })
+  function playVideo() {
+    document.getElementById('mask').style.display = 'none';
+    video.play();
+  }
+</script>
+</body>
+</html>
