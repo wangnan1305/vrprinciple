@@ -14,12 +14,16 @@
 
     <div class="col-md-3">
       <draggable class="list-group" v-model="list">
-        <!-- <transition-group type="transition" :name="'flip-list'"> -->
-          <li class="list-group-item" v-for="element in list" :key="element.order">
-            {{element.name}}
-            <span class="badge">{{element.order}}</span>
+        <transition-group type="transition" :name="'flip-list'">
+          <li class="list-group-item" v-for="(element, index) in list" :key="element.order">
+            <div>
+              <div></div>
+              {{element.name}}
+            </div>
+
+            <span class="badge">{{index}}</span>
           </li>
-        <!-- </transition-group> -->
+        </transition-group>
       </draggable>
     </div>
     <div class="list-group col-md-3">
@@ -31,14 +35,11 @@
 <script>
 import draggable from 'vuedraggable'
 const message = [
-  'vue.draggable',
-  'draggable',
-  'component',
-  'for',
-  'vue.js 2.0',
-  'based',
-  'on',
-  'Sortablejs'
+  '第一页',
+  '第二页',
+  '第三页',
+  '第四页',
+  '第五页'
 ]
 export default {
   name: 'hello',

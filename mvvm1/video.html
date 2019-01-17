@@ -11,43 +11,22 @@
       height: 100%;
     }
     .video-container {
-      width: 300px;
-      height: 600px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      margin: 0 auto;
+      width: 100%;
+      position: relative;
     }
     #video {
       display: block;
       width: 100%;
     }
-    #mask {
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0);
+    #img-mask {
       position: absolute;
       top: 0;
-      left: 0;
-      z-index: 2;
+      left: 50%;
+      transform: translateX(-50%);
       display: none;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+      z-index: 999;
     }
-    .pop-container {
-      width: 250px;
-      height: 200px;
-      background: transparent;
-      border-radius: 5px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    img {
+    img{
       width: 40px;
       height: 40px;
     }
@@ -56,19 +35,16 @@
 <body>
 
 <div class="video-container">
-  <h2>TITLE3</h2>
   <video
     id="video"
-    poster="http://ks3-cn-beijing.ksyun.com/static.toptest.yidianzixun.com/public/file/1542870766741/only_01.png"
-    src="https://ks3-cn-beijing.ksyun.com/static.toptest.yidianzixun.com/public/file/1544433220831/shiping.mp4"
+    poster="http://ks3-cn-beijing.ksyun.com/static.toptest.yidianzixun.com/public/file/1528099137538/diyizhentupian.jpg"
+    src="https://ks3-cn-beijing.ksyun.com/static.toptest.yidianzixun.com/public/file/1528099137538/18：9.mp4"
     loop="loop"
     autoplay
     playsinline="true"
     webkit-playsinline="true"
   ></video>
-</div>
-<div id="mask">
-  <div class="pop-container">
+  <div id="img-mask">
     <img
       onclick="playVideo()"
       src="https://ks3-cn-beijing.ksyun.com/static.toptest.yidianzixun.com/public/file/1545962530075/bofang.png"
@@ -76,26 +52,31 @@
   </div>
 </div>
 <script>
-  var video = document.querySelector('#video');
+  const video = document.querySelector('#video');
+  const dom = document.getElementById('img-mask');
   function resolveVideoTime(){
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve(video.currentTime)
-      }, 500)
+        resolve({
+          time: video.currentTime,
+          height: video.offsetHeight
+        })
+      }, 1000)
     })
   }
   async function asyncCall(){
     return await resolveVideoTime();
   }
-  asyncCall().then((time) => {
-    if(time > 0) {
-      document.getElementById('mask').style.display = 'none';
-    } else if(time === 0){
-      document.getElementById('mask').style.display = 'flex';
+  asyncCall().then((obj) => {
+    if(obj.time > 0) {
+      dom.style.display = 'none';
+    } else if(obj.time === 0){
+      dom.style.display = 'block';
+      dom.style.top = (+obj.height)/2 + 'px'
     }
   })
   function playVideo() {
-    document.getElementById('mask').style.display = 'none';
+    dom.style.display = 'none';
     video.play();
   }
 </script>
