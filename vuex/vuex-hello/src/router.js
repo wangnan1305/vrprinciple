@@ -25,6 +25,16 @@ export default new Router({
       path: '/2',
       name: 'draggable',
       component: () => import('./components/draggable.vue')
+    },
+    {
+      path: '/3',
+      name: 'cropper2',
+      component: () => import('./components/cropper2.vue')
+    },
+    {
+      path: '/4',
+      name: 'cropper',
+      component: () => import('./components/cropper.vue')
     }
   ]
 })
